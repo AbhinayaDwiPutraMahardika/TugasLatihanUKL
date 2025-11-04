@@ -1,98 +1,158 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
-</p>
+<img width="1614" height="918" alt="Screenshot 2025-11-04 170434" src="https://github.com/user-attachments/assets/00b48245-22c6-4bfc-88dd-9f981fd9eb8a" />
+<img width="1902" height="981" alt="Screenshot 2025-11-04 170537" src="https://github.com/user-attachments/assets/c425a95c-dc86-4b30-b1d1-0f3e48d71c5c" />
+<img width="1344" height="888" alt="Screenshot 2025-11-04 202559" src="https://github.com/user-attachments/assets/94f09fe6-f6de-4971-8dd7-330219986693" />
+<img width="928" height="643" alt="Screenshot 2025-11-04 204252" src="https://github.com/user-attachments/assets/a377312f-5c72-413c-9cd5-92e9f6e6ae24" />
+<img width="1349" height="863" alt="Screenshot 2025-11-04 204416" src="https://github.com/user-attachments/assets/d0f28b0a-b8e3-41a7-9aa1-263f1068ac3e" />
+<img width="1346" height="852" alt="Screenshot 2025-11-04 204558" src="https://github.com/user-attachments/assets/06258912-7ac7-4125-9d44-6bb77f48d956" />
+<img width="1382" height="837" alt="Screenshot 2025-11-04 204613" src="https://github.com/user-attachments/assets/0573deb3-5096-4b27-a7e7-bcf1cc0d49da" />
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+Sistem Absensi Sederhana dengan NestJS dan Prisma
+Deskripsi
 
-## Description
+Proyek ini adalah aplikasi manajemen pengguna dan absensi yang dibuat menggunakan NestJS, Prisma ORM, dan PostgreSQL/MySQL (sesuai konfigurasi kamu). Aplikasi ini mendukung autentikasi dengan JWT (JSON Web Token) dan sistem role-based access control untuk membedakan akses antara admin dan user biasa.
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+Fitur Utama
 
-## Project setup
+Autentikasi JWT
 
-```bash
-$ npm install
-```
+Pengguna dapat login menggunakan username dan password.
 
-## Compile and run the project
+Token JWT digunakan untuk mengakses endpoint yang dilindungi.
 
-```bash
-# development
-$ npm run start
+Manajemen Pengguna
 
-# watch mode
-$ npm run start:dev
+Admin dapat menambah, melihat, mengubah, dan menghapus data user.
 
-# production mode
-$ npm run start:prod
-```
+Password disimpan dalam bentuk hash menggunakan bcrypt untuk keamanan.
 
-## Run tests
+Manajemen Absensi
 
-```bash
-# unit tests
-$ npm run test
+Pengguna dapat melakukan absensi (hadir/pulang) dengan menyimpan waktu dan tanggal otomatis.
 
-# e2e tests
-$ npm run test:e2e
+Admin dapat melihat semua data absensi.
 
-# test coverage
-$ npm run test:cov
-```
+Pengguna hanya bisa melihat data absensinya sendiri.
 
-## Deployment
+Proteksi Endpoint
 
-When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
+Menggunakan guard JWT untuk memastikan hanya pengguna terautentikasi yang dapat mengakses API tertentu.
 
-If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
+Arsitektur Folder
 
-```bash
-$ npm install -g @nestjs/mau
-$ mau deploy
-```
+Struktur folder utama proyek:
 
-With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
+src/auth → berisi semua hal terkait autentikasi (login, JWT, strategi Passport)
 
-## Resources
+src/users → mengatur manajemen user (CRUD)
 
-Check out a few resources that may come in handy when working with NestJS:
+src/attendance → mengatur data absensi pengguna
 
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Deploy your application to AWS with the help of [NestJS Mau](https://mau.nestjs.com) in just a few clicks.
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
+src/prisma → konfigurasi database dan Prisma Service
 
-## Support
+.env → menyimpan variabel lingkungan (JWT_SECRET, database URL, dll)
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+Cara Kerja Program
 
-## Stay in touch
+Proses Registrasi dan Login
 
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+Admin atau sistem dapat menambahkan pengguna baru melalui endpoint /users dengan data username, password, dan role.
 
-## License
+Saat login di endpoint /auth/login, sistem memverifikasi password dengan bcrypt dan menghasilkan token JWT.
 
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+Token ini digunakan untuk mengakses endpoint lain sebagai bukti autentikasi.
+
+Middleware dan Guards
+
+Setiap endpoint yang dilindungi menggunakan JwtAuthGuard untuk memeriksa validitas token.
+
+Jika token valid, data pengguna akan diteruskan ke controller melalui @Request().
+
+Proses Absensi
+
+Ketika user mengirim request ke endpoint /attendance dengan status seperti “hadir” atau “pulang”, sistem otomatis mencatat:
+
+ID user dari token JWT
+
+Tanggal (date) dan waktu (time) saat absensi dibuat
+
+Status absensi (hadir/pulang)
+
+Data absensi tersimpan di tabel Attendance di database.
+
+Hak Akses
+
+User biasa hanya bisa melihat absensinya sendiri melalui /attendance/me.
+
+Admin dapat melihat seluruh data absensi melalui /attendance/all.
+
+Keamanan
+
+Password pengguna disimpan dalam bentuk hash menggunakan bcrypt.
+
+JWT digunakan agar setiap request ke endpoint sensitif diverifikasi.
+
+Role dan guard diterapkan agar akses API sesuai dengan hak pengguna.
+
+Daftar Endpoint
+Auth
+
+POST /auth/login → Login dan mendapatkan token JWT
+
+Users
+
+POST /users → Tambah pengguna baru (admin)
+
+GET /users → Lihat semua pengguna
+
+GET /users/:id → Lihat detail pengguna tertentu
+
+PATCH /users/me → Update profil sendiri
+
+DELETE /users/:id → Hapus pengguna
+
+Attendance
+
+POST /attendance → Tambah absensi (hadir/pulang)
+
+GET /attendance/me → Lihat absensi milik sendiri
+
+GET /attendance/all → Lihat semua absensi (khusus admin)
+
+GET /attendance/today → Lihat absensi hari ini
+
+GET /attendance/rekap → Lihat rekap absensi semua user
+
+Teknologi yang Digunakan
+
+NestJS sebagai framework backend
+
+Prisma ORM untuk akses database
+
+Passport & JWT untuk autentikasi
+
+Bcrypt untuk hashing password
+
+Postman untuk pengujian endpoint
+
+Cara Menjalankan
+
+Clone repository ini.
+
+Install dependencies dengan npm install.
+
+Buat file .env berisi:
+
+DATABASE_URL="mysql://user:password@localhost:3306/db_name"
+JWT_SECRET="SECRETJWT"
+
+
+Jalankan perintah npx prisma migrate dev untuk membuat struktur database.
+
+Jalankan server dengan npm run start:dev.
+
+Tes API menggunakan Postman.
+
+Penutup
+
+Aplikasi ini dibuat untuk latihan pengembangan backend menggunakan NestJS dan Prisma ORM. Sistem dapat dikembangkan lebih lanjut, misalnya dengan menambahkan laporan absensi, notifikasi, atau integrasi frontend.
