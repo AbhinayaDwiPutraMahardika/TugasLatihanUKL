@@ -1,19 +1,39 @@
-import { CreateUserDto } from './dto/create-user.dto';
-import { UpdateUserDto } from './dto/update-user.dto';
-import { PrismaService } from 'src/prisma/prisma.service';
+import { PrismaService } from '../prisma/prisma.service';
 export declare class UsersService {
     private prisma;
     constructor(prisma: PrismaService);
-    create(createUserDto: CreateUserDto): Promise<{
+    create(data: any): Promise<{
+        name: string;
         username: string;
         password: string;
-        name: string;
-        role: string;
         createdAt: Date;
+        role: string;
         id: number;
     }>;
-    findAll(): string;
-    findOne(id: number): string;
-    update(id: number, updateUserDto: UpdateUserDto): string;
-    remove(id: number): string;
+    findAll(): Promise<{
+        name: string;
+        username: string;
+        createdAt: Date;
+        role: string;
+        id: number;
+    }[]>;
+    findOne(id: number): Promise<{
+        name: string;
+        username: string;
+        createdAt: Date;
+        role: string;
+        id: number;
+    } | null>;
+    update(id: number, data: any): Promise<{
+        name: string;
+        username: string;
+        createdAt: Date;
+        role: string;
+        id: number;
+    }>;
+    remove(id: number): Promise<{
+        name: string;
+        username: string;
+        id: number;
+    }>;
 }

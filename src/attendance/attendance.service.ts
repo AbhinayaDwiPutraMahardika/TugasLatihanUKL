@@ -6,12 +6,14 @@ export class AttendanceService {
   constructor(private prisma: PrismaService) {}
 
   async create(user_id: number, status: string) {
+    const now = new Date();
+
     return this.prisma.attendance.create({
       data: {
         user_id,
-        status,
-        date: new Date(),
-        time: new Date().toLocaleTimeString(),
+        date: now,
+        time: now.toLocaleTimeString('id-ID', {hour12:false}),
+        status: status,
       },
     });
   }
@@ -44,6 +46,7 @@ export class AttendanceService {
           lt: tomorrow,
         },
       },
+      orderBy: { time: 'asc' },
     });
   }
 
@@ -62,14 +65,12 @@ export class AttendanceService {
     const startDate = new Date(year, month - 1, 1);
     const endDate = new Date(year, month, 0, 23, 59, 59);
 
-    const attendances = await this.prisma.attendance.findMany({
+    return this.prisma.attendance.findMany({
       where: {
         date: { gte: startDate, lte: endDate },
       },
       include: { user: true },
       orderBy: { user_id: 'asc' },
     });
-
-    return attendances;
   }
 }

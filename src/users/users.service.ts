@@ -1,39 +1,88 @@
 import { Injectable } from '@nestjs/common';
-import { CreateUserDto } from './dto/create-user.dto';
-import { UpdateUserDto } from './dto/update-user.dto';
+import { PrismaService } from '../prisma/prisma.service';
 import * as bcrypt from 'bcrypt';
-import { PrismaService } from 'src/prisma/prisma.service';
 
 @Injectable()
 export class UsersService {
   constructor(private prisma: PrismaService) {}
 
-  async create(createUserDto: CreateUserDto) {
-    const hashedPassword = await bcrypt.hash(createUserDto.password, 10);
+  /**
+   * CREATE USER
+   */
+  async create(data: any) {
+  const hashedPassword = await bcrypt.hash(data.password, 10);
+  return this.prisma.user.create({
+    data: {
+      name: data.name,        // ✅ ambil dari request body
+      username: data.username,
+      password: hashedPassword,
+      role: data.role || 'user',
+    },
+  });
+}
 
-    return this.prisma.user.create({
-      data: {
-        username: createUserDto.username,
-        password: hashedPassword,
-        name: createUserDto.username,
-        role: 'user'
-      }
-    })
+
+  /**
+   * GET ALL USERS
+   */
+  async findAll() {
+    return this.prisma.user.findMany({
+      select: {
+        id: true,
+        name: true,
+        username: true,
+        role: true,
+        createdAt: true,
+      },
+      orderBy: { id: 'asc' },
+    });
   }
 
-  findAll() {
-    return `This action returns all users`;
+  /**
+   * GET USER BY ID
+   */
+  async findOne(id: number) {
+    return this.prisma.user.findUnique({
+      where: { id },
+      select: {
+        id: true,
+        name: true,
+        username: true,
+        role: true,
+        createdAt: true,
+      },
+    });
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} user`;
+  /**
+   * UPDATE USER (umumnya dipakai untuk update profil)
+   */
+  async update(id: number, data: any) {
+    // Jika password ikut diupdate, hash lagi di controller sebelum dikirim ke sini
+    return this.prisma.user.update({
+      where: { id },
+      data,
+      select: {
+        id: true,
+        name: true,
+        username: true,
+        role: true,
+        createdAt: true,
+      },
+    });
   }
 
-  update(id: number, updateUserDto: UpdateUserDto) {
-    return `This action updates a #${id} user`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} user`;
+  /**
+   * DELETE USER
+   */
+  async remove(id: number) {
+    return this.prisma.user.delete({
+      where: { id },
+      select: {
+        id: true,
+        name: true,
+        username: true,
+      },
+    });
   }
 }

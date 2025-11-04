@@ -44,35 +44,70 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.UsersService = void 0;
 const common_1 = require("@nestjs/common");
-const bcrypt = __importStar(require("bcrypt"));
 const prisma_service_1 = require("../prisma/prisma.service");
+const bcrypt = __importStar(require("bcrypt"));
 let UsersService = class UsersService {
     prisma;
     constructor(prisma) {
         this.prisma = prisma;
     }
-    async create(createUserDto) {
-        const hashedPassword = await bcrypt.hash(createUserDto.password, 10);
+    async create(data) {
+        const hashedPassword = await bcrypt.hash(data.password, 10);
         return this.prisma.user.create({
             data: {
-                username: createUserDto.username,
+                name: data.name,
+                username: data.username,
                 password: hashedPassword,
-                name: createUserDto.username,
-                role: 'user'
-            }
+                role: data.role || 'user',
+            },
         });
     }
-    findAll() {
-        return `This action returns all users`;
+    async findAll() {
+        return this.prisma.user.findMany({
+            select: {
+                id: true,
+                name: true,
+                username: true,
+                role: true,
+                createdAt: true,
+            },
+            orderBy: { id: 'asc' },
+        });
     }
-    findOne(id) {
-        return `This action returns a #${id} user`;
+    async findOne(id) {
+        return this.prisma.user.findUnique({
+            where: { id },
+            select: {
+                id: true,
+                name: true,
+                username: true,
+                role: true,
+                createdAt: true,
+            },
+        });
     }
-    update(id, updateUserDto) {
-        return `This action updates a #${id} user`;
+    async update(id, data) {
+        return this.prisma.user.update({
+            where: { id },
+            data,
+            select: {
+                id: true,
+                name: true,
+                username: true,
+                role: true,
+                createdAt: true,
+            },
+        });
     }
-    remove(id) {
-        return `This action removes a #${id} user`;
+    async remove(id) {
+        return this.prisma.user.delete({
+            where: { id },
+            select: {
+                id: true,
+                name: true,
+                username: true,
+            },
+        });
     }
 };
 exports.UsersService = UsersService;

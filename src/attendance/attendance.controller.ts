@@ -16,10 +16,11 @@ import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 export class AttendanceController {
   constructor(private readonly attendanceService: AttendanceService) {}
 
-  @UseGuards(JwtAuthGuard)
   @Post()
-  async create(@Request() req, @Body('status') status: string) {
-    return this.attendanceService.create(req.user.id, status);
+  @UseGuards(JwtAuthGuard)
+  create(@Request() req, @Body('status') status: string) {
+    const user = req.user;
+    return this.attendanceService.create(user.id, status);
   }
 
   @UseGuards(JwtAuthGuard)

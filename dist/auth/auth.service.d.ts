@@ -7,11 +7,11 @@ export declare class AuthService {
     login(username: string, password: string): Promise<{
         access_token: string;
         user: {
+            name: string;
             username: string;
             password: string;
-            name: string;
-            role: string;
             createdAt: Date;
+            role: string;
             id: number;
         };
     }>;

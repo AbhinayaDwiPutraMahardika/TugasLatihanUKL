@@ -21,8 +21,9 @@ let AttendanceController = class AttendanceController {
     constructor(attendanceService) {
         this.attendanceService = attendanceService;
     }
-    async create(req, status) {
-        return this.attendanceService.create(req.user.id, status);
+    create(req, status) {
+        const user = req.user;
+        return this.attendanceService.create(user.id, status);
     }
     async findAll(req) {
         if (req.user.role !== 'admin') {
@@ -48,13 +49,13 @@ let AttendanceController = class AttendanceController {
 };
 exports.AttendanceController = AttendanceController;
 __decorate([
-    (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard),
     (0, common_1.Post)(),
+    (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard),
     __param(0, (0, common_1.Request)()),
     __param(1, (0, common_1.Body)('status')),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object, String]),
-    __metadata("design:returntype", Promise)
+    __metadata("design:returntype", void 0)
 ], AttendanceController.prototype, "create", null);
 __decorate([
     (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard),
